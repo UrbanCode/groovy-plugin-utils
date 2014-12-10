@@ -1,0 +1,17 @@
+apply plugin: 'groovy'
+
+version = '1.0'
+
+def projectName = "plugins-util"
+def version = System.properties['version'] ?: 'dev'
+
+jar.archiveName = "${projectName}-${version}.jar"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:1.8.8'
+    compile 'com.google.code.gson:gson:2.3.1'
+}
