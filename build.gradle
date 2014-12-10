@@ -1,11 +1,11 @@
 apply plugin: 'groovy'
+defaultTasks 'clean', 'jar'
 
 version = '1.0'
 
 def projectName = "plugins-util"
-def version = System.properties['version'] ?: 'dev'
 
-jar.archiveName = "${projectName}-${version}.jar"
+jar.archiveName = "${projectName}.jar"
 
 repositories {
     mavenCentral()
