@@ -24,8 +24,7 @@ uploadArchives {
     repositories {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            //url "file:/${project.projectDir}/artifacts"
+            
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
                 authentication(userName: ossrhUsername, password: ossrhPassword)
             }
@@ -79,7 +78,7 @@ artifacts {
 }
 
 /**
- * Signing requires that the following properties be defined in $USER_HOME/.gradle/gradle.properties:
+ * Signing requires that the following properties be defined in $GRADLE_USER_HOME/gradle.properties. $GRADLE_USER_HOME defaults to $USER_HOME/.gradle
  * signing.keyId=
  * signing.password=
  * signing.secretKeyRingFile=
