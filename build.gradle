@@ -11,6 +11,9 @@ version = '1.0' + ((hasProperty('snapshot') && snapshot == 'false') ? '' : '-SNA
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 jar.archiveName "${archivesBaseName}-${version}.jar"
 
+def username = hasProperty('ossrhUsername') ? ossrhUsername : ''
+def password = hasProperty('ossrhPassword') ? ossrPassword : ''
+
 repositories {
     mavenCentral()
 }
@@ -24,13 +27,13 @@ uploadArchives {
     repositories {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-            
+
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
+                authentication(userName: username, password: password)
             }
 
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
+                authentication(userName: username, password: password)
             }
 
             pom.project {
