@@ -12,7 +12,7 @@ ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 jar.archiveName "${archivesBaseName}-${version}.jar"
 
 def username = hasProperty('ossrhUsername') ? ossrhUsername : ''
-def password = hasProperty('ossrhPassword') ? ossrPassword : ''
+def password = hasProperty('ossrhPassword') ? ossrhPassword : ''
 
 repositories {
     mavenCentral()
