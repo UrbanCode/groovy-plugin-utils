@@ -15,9 +15,8 @@ defaultTasks 'clean', 'jar'
 
 group = 'com.ibm.urbancode.plugins'
 archivesBaseName = 'groovy-plugin-utils'
-version = scmVersion.version //'1.0' + ((hasProperty('snapshot') && snapshot == 'false') ? '' : '-SNAPSHOT')
+version = scmVersion.version
 
-ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 jar.archiveName "${archivesBaseName}-${version}.jar"
 
 def username = hasProperty('ossrhUsername') ? ossrhUsername : ''

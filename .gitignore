@@ -1,1 +1,3 @@
-launchConfigurations/
+.git/
+.gradle/
+build/
