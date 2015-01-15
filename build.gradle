@@ -1,12 +1,21 @@
-['groovy', 'maven', 'signing'].each {
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'pl.allegro.tech.build', name: 'axion-release-plugin', version: '1.0.0'
+    }
+}
+
+['groovy', 'maven', 'signing', 'pl.allegro.tech.build.axion-release'].each {
     apply plugin: it
 }
 defaultTasks 'clean', 'jar'
 
 group = 'com.ibm.urbancode.plugins'
 archivesBaseName = 'groovy-plugin-utils'
-// Use -Psnapshot=false to produce new releases
-version = '1.0' + ((hasProperty('snapshot') && snapshot == 'false') ? '' : '-SNAPSHOT')
+version = scmVersion.version //'1.0' + ((hasProperty('snapshot') && snapshot == 'false') ? '' : '-SNAPSHOT')
 
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 jar.archiveName "${archivesBaseName}-${version}.jar"
