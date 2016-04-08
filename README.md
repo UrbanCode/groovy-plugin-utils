@@ -1,5 +1,4 @@
-# groovy-plugin-utils
----
+# Groovy Plugin Utils
 
 The groovy-plugin-utils project supplies utility scripts for IBM UrbanCode Build and IBM UrbanCode Deploy plugins.
 
