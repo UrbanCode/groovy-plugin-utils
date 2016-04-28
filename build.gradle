@@ -1,7 +1,7 @@
 ['groovy', 'maven', 'signing'].each {
     apply plugin: it
 }
-defaultTasks 'clean', 'jar'
+defaultTasks 'clean', 'jar', 'groovyDocJar', 'copyDocs'
 
 group = 'com.ibm.urbancode.plugins'
 archivesBaseName = 'groovy-plugin-utils'
@@ -91,3 +91,8 @@ signing {
     sign configurations.archives
 }
 
+task copyDocs(type: Copy) {
+	from('build/docs/groovydoc')
+	into('docs')
+	into('gh-pages')
+}
