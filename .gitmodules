@@ -1,4 +1,4 @@
-[submodule "gh-pages"]
-	path = gh-pages
-	url = https://github.com/IBM-UrbanCode/groovy-plugin-utils.git
+[submodule "docs"]
+	path = docs
+	url = git@github.com:IBM-UrbanCode/groovy-plugin-utils.git
 	branch = gh-pages
