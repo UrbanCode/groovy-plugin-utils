@@ -1,6 +1,6 @@
-# Groovy Plugin Utils Library
+# Groovy Plugin Utils
 
-The groovy-plugin-utils-library project supplies utility scripts for IBM UrbanCode Build and IBM UrbanCode Deploy plugins.
+The groovy-plugin-utils project supplies utility scripts for IBM UrbanCode Build and IBM UrbanCode Deploy plugins.
 
 ### Compiling Source
 `gradle`
