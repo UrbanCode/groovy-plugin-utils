@@ -13,3 +13,6 @@ dependencies {
     compile 'com.ibm.urbancode.plugins:groovy-plugin-utils:1.0'
 }
 ```
+
+### License
+This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclipse.org/legal/epl-v10.html)
