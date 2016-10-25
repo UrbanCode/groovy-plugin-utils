@@ -1,12 +1,13 @@
 ['groovy', 'maven', 'signing'].each {
     apply plugin: it
 }
-defaultTasks 'clean', 'jar', 'copyDocs'
+//defaultTasks 'clean', 'jar', 'copyDocs'
+defaultTasks 'clean', 'compileJava', 'compileGroovy', 'processResources', 'classes', 'createJar', 'copyGroovyJar', 'copyDocs'
 
 group = 'com.ibm.urbancode.plugins'
 archivesBaseName = 'groovy-plugin-utils'
 // Use -Psnapshot=false to produce new releases
-version = '1.0' + ((hasProperty('snapshot') && snapshot == 'false') ? '' : '-SNAPSHOT')
+version = '1.1' + ((hasProperty('snapshot') && snapshot == 'false') ? '' : '-SNAPSHOT')
 
 jar.archiveName "${archivesBaseName}-${version}.jar"
 
@@ -37,8 +38,8 @@ uploadArchives {
 
             pom.project {
                 name "${group}:${archivesBaseName}"
-                description 'A set of utility scripts than can be used in community plugins on JazzHub'
-                url 'https://hub.jazz.net/project/crr/groovy-plugin-utils'
+                description 'A set of utility scripts that can be used in community plugins on GitHub.'
+                url 'https://github.com/IBM-UrbanCode/groovy-plugin-utils'
                 licenses {
                     license {
                         name 'Eclipse Public License, Version 1.0'
@@ -47,16 +48,16 @@ uploadArchives {
                 }
                 developers {
                     developer {
-                        name 'Chris Rees'
-                        email 'crr@us.ibm.com'
+                        name 'Nicholas Mathison'
+                        email 'nhmathis@us.ibm.com'
                         organization 'IBM'
                         organizationUrl 'http://www.ibm.com'
                     }
                 }
                 scm {
-                    connection 'scm:git:https://hub.jazz.net/git/crr/groovy-plugin-utils'
-                    developerConnection 'scm:git:https://hub.jazz.net/git/crr/groovy-plugin-utils'
-                    url 'https://hub.jazz.net/project/crr/groovy-plugin-utils'
+                    connection 'scm:git:https://github.com/IBM-UrbanCode/groovy-plugin-utils.git'
+                    developerConnection 'scm:git:https://github.com/IBM-UrbanCode/groovy-plugin-utils.git'
+                    url 'https://github.com/IBM-UrbanCode/groovy-plugin-utils'
                 }
             }
         }
@@ -75,8 +76,18 @@ task groovyDocJar(type: Jar) {
     from groovydoc
 }
 
+task createJar(type: Exec) {
+    commandLine "jar", "cf", "build/tmp/${jar.archiveName}", "-C", "src/main/groovy", "."
+}
+
+task copyGroovyJar(type: Copy) {
+    from "build/tmp/${jar.archiveName}"
+    into 'build/libs'
+}
+
+def groovyJar = file("build/libs/${jar.archiveName}")
 artifacts {
-    archives jar, sourcesJar, groovyDocJar
+    archives groovyJar, sourcesJar, groovyDocJar
 }
 
 /**
@@ -95,4 +106,3 @@ task copyDocs(type: Copy) {
     from groovydoc
     into('docs')
 }
-
