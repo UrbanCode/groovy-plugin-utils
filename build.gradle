@@ -1,8 +1,7 @@
 ['groovy', 'maven', 'signing'].each {
     apply plugin: it
 }
-//defaultTasks 'clean', 'jar', 'copyDocs'
-defaultTasks 'clean', 'compileJava', 'compileGroovy', 'processResources', 'classes', 'createJar', 'copyGroovyJar', 'copyDocs'
+defaultTasks 'clean', 'jar', 'copyDocs'
 
 group = 'com.ibm.urbancode.plugins'
 archivesBaseName = 'groovy-plugin-utils'
@@ -23,6 +22,13 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
 }
 
+/*
+ * Uploading artifacts requires properties be defined in $GRADLE_USER_HOME/gradle.properties. $GRADLE_USER_HOME defaults to $USER_HOME/.gradle
+ * ossrhUsername=your-jira-id
+ * ossrhPassword=your-jira-password
+ * See: http://central.sonatype.org/pages/gradle.html
+ * Then follow: http://central.sonatype.org/pages/releasing-the-deployment.html
+ */
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -76,25 +82,30 @@ task groovyDocJar(type: Jar) {
     from groovydoc
 }
 
-task createJar(type: Exec) {
-    commandLine "jar", "cf", "build/tmp/${jar.archiveName}", "-C", "src/main/groovy", "."
+// Copy the source into the build jar directory
+jar {
+    dependsOn 'copyGroovy'
 }
 
-task copyGroovyJar(type: Copy) {
-    from "build/tmp/${jar.archiveName}"
-    into 'build/libs'
+// Change the Groovy Compile output directory to not combine in final Jar build folder
+compileGroovy {
+    destinationDir = file('build/tmp/groovyClasses')
 }
 
-def groovyJar = file("build/libs/${jar.archiveName}")
+task copyGroovy(type:Copy) {
+    from sourceSets.main.groovy
+    into 'build/classes/main'
+}
+
 artifacts {
-    archives groovyJar, sourcesJar, groovyDocJar
+    archives jar, sourcesJar, groovyDocJar
 }
 
 /**
  * Signing requires that the following properties be defined in $GRADLE_USER_HOME/gradle.properties. $GRADLE_USER_HOME defaults to $USER_HOME/.gradle
- * signing.keyId=
- * signing.password=
- * signing.secretKeyRingFile=
+ * signing.keyId=YourKeyId
+ * signing.password=YourPublicKeyPassword
+ * signing.secretKeyRingFile=PathToYourKeyRingFile
  * See http://www.gradle.org/docs/current/userguide/signing_plugin.html
  */
 signing {
