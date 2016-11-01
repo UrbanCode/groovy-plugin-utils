@@ -1,4 +1,4 @@
-['groovy', 'maven', 'signing'].each {
+['groovy', 'maven', 'signing', 'io.codearte.nexus-staging'].each {
     apply plugin: it
 }
 defaultTasks 'clean', 'jar', 'copyDocs'
@@ -6,7 +6,7 @@ defaultTasks 'clean', 'jar', 'copyDocs'
 group = 'com.ibm.urbancode.plugins'
 archivesBaseName = 'groovy-plugin-utils'
 // Use -Psnapshot=false to produce new releases
-version = '1.1' + ((hasProperty('snapshot') && snapshot == 'false') ? '' : '-SNAPSHOT')
+version = '1.2' + ((hasProperty('snapshot') && snapshot == 'false') ? '' : '-SNAPSHOT')
 
 jar.archiveName "${archivesBaseName}-${version}.jar"
 
@@ -116,4 +116,27 @@ signing {
 task copyDocs(type: Copy) {
     from groovydoc
     into('docs')
+}
+
+
+/**
+ * Deploy to Sonatype Nexus
+ * Run: gradle closeAndPromoteRepository
+ * See: https://github.com/Codearte/gradle-nexus-staging-plugin/
+ * ossrhUsername and ossrhPassword are taken from gradle.properties
+ */
+// Add the gradle nexus staging plugin
+// See: https://github.com/Codearte/gradle-nexus-staging-plugin/
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+    }
+}
+
+// Configure the nexus staging plugin
+nexusStaging {
+    packageGroup = "com.ibm.urbancode.plugins" //optional if packageGroup == project.getGroup()
 }
