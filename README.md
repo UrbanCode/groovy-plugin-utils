@@ -6,7 +6,7 @@ The groovy-plugin-utils project supplies utility scripts for IBM UrbanCode Build
 `gradle`
 
 ### Using groovy-plugin-utils as a dependency
-You can find the latest version of the groovy-plugin-utils project on the [Maven Central Repository](http://search.maven.org/#browse%7C-1759853279).
+You can find the latest version of the groovy-plugin-utils project on the [Maven Central Repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.ibm.urbancode.plugins%22%20AND%20a%3A%22groovy-plugin-utils%22).
 To add the groovy-plugin-utils project as a dependency in another Gradle project, add the following lines:
 ```
 dependencies {
