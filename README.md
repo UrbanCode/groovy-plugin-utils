@@ -10,7 +10,7 @@ You can find the latest version of the groovy-plugin-utils project on the [Maven
 To add the groovy-plugin-utils project as a dependency in another Gradle project, add the following lines:
 ```
 dependencies {
-    compile 'com.ibm.urbancode.plugins:groovy-plugin-utils:1.2'
+    compile 'com.ibm.urbancode.plugins:groovy-plugin-utils:1.3'
 }
 ```
 
