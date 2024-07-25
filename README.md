@@ -3,7 +3,7 @@
 The groovy-plugin-utils project supplies utility scripts for IBM UrbanCode Build and IBM UrbanCode Deploy plugins.
 
 ### Compiling Source
-`gradle`
+`./gradlew` or `./gradlew.bat`
 
 ### Using groovy-plugin-utils as a dependency
 You can find the latest version of the groovy-plugin-utils project on the [Maven Central Repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.ibm.urbancode.plugins%22%20AND%20a%3A%22groovy-plugin-utils%22).
